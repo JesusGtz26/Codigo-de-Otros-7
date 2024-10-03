@@ -1,0 +1,58 @@
+/*
+ * Este programa permite al usuario introducir el nombre de un país para obtener su capital.
+ * Si el país no está en la base de datos, el programa le pedirá al usuario que introduzca la capital
+ * y actualizará la base de datos con la nueva información.
+ * El usuario puede salir del programa escribiendo "salir".
+ */
+
+import java.util.HashMap;
+import java.util.Scanner;
+
+public class Codigo7 {
+    
+    public static void main(String[] args) {
+        // Creamos un objeto Scanner para leer la entrada del usuario
+        Scanner s = new Scanner(System.in);
+
+        // Creamos un HashMap que contiene países y sus respectivas capitales
+        HashMap<String, String> capitales = new HashMap<>();
+
+        // Agregamos los datos de países y capitales al HashMap
+        capitales.put("Canadá", "Ottawa"); // Se corrigió "Otawwa" a "Ottawa"
+        capitales.put("Estados Unidos", "Washington DC");
+        capitales.put("México", "Ciudad de México"); // Se cambió "México DF" a "Ciudad de México"
+        capitales.put("Belice", "Belmopán");
+        capitales.put("Costa Rica", "San José"); // Se corrigió "Costa rica" a "Costa Rica"
+        capitales.put("El Salvador", "San Salvador"); // Faltaba la capital de El Salvador
+        capitales.put("Guatemala", "Ciudad de Guatemala");
+        capitales.put("Honduras", "Tegucigalpa");
+        capitales.put("Nicaragua", "Managua");
+        capitales.put("Panamá", "Panamá");
+
+        String pais = ""; // Variable que almacenará el país introducido por el usuario
+
+        // Bucle para solicitar al usuario que introduzca el nombre del país
+        do {
+            System.out.print("Escribe el nombre de un país y te diré su capital (o escribe 'salir' para terminar): ");
+            pais = s.nextLine(); // Cambiado de `nextDouble` a `nextLine` para leer cadenas
+
+            // Si el usuario no escribe "salir", buscamos la capital
+            if (!pais.equalsIgnoreCase("salir")) {
+                // Verificamos si el país existe en el HashMap
+                if (capitales.containsKey(pais)) {
+                    System.out.println("La capital de " + pais + " es " + capitales.get(pais));
+                } else {
+                    // Si el país no está en la base de datos, pedimos la capital al usuario
+                    System.out.print("No conozco la capital de " + pais + ". ¿Cuál es la capital?: ");
+                    String nuevaCapital = s.nextLine(); // Leemos la nueva capital
+                    capitales.put(pais, nuevaCapital); // Añadimos el nuevo país y su capital al HashMap
+                    System.out.println("Gracias por enseñarme la capital de " + pais + ".");
+                }
+            }
+
+        } while (!pais.equalsIgnoreCase("salir")); // Condición de salida del bucle
+
+        // Cerramos el Scanner para liberar recursos
+        s.close();
+    }
+}
